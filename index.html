@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Correa y Camino | Tomás, Paseador de Perros</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <style>
+        /* CSS: Se eliminan los asteriscos en los selectores que pudieran tenerlos, aunque en este caso solo estaban en el selector universal */
+        :root {
+            --color-principal: #007bff; /* Azul */
+            --color-acento: #ff6347; /* Naranja/Tomate */
+            --color-fondo: #f8f8f8;
+            --color-claro: #ffffff;
+            --color-oscuro: #333;
+        }
+        body { font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height:1.6; color:var(--color-oscuro); background-color:var(--color-fondo); }
+
+        .container { width:90%; max-width:1100px; margin:0 auto; }
+        .section-padding { padding:70px 0; }
+        .bg-light { background-color: var(--color-claro); }
+        .section-title { text-align:center; margin-bottom:50px; font-size:2.8em; color:var(--color-principal); border-bottom:3px solid var(--color-acento); display:inline-block; padding-bottom:5px; }
+
+        header { background:var(--color-claro); padding:15px 0; box-shadow:0 4px 10px rgba(0,0,0,0.05); position:sticky; top:0; z-index:1000; }
+        header h1 { font-size:1.8em; color: var(--color-acento); }
+        header nav { display:flex; justify-content: space-between; align-items:center; }
+        header ul { list-style:none; display:flex; }
+        header ul li { margin-left:25px; }
+        header ul li a { color: var(--color-oscuro); text-decoration:none; font-weight:600; transition: color 0.3s; }
+        header ul li a:hover { color: var(--color-principal); }
+
+        .hero { background: linear-gradient(135deg, var(--color-principal), #00aaff); min-height:450px; display:flex; align-items:center; text-align:center; color:white; box-shadow:0 5px 15px rgba(0,0,0,0.2); }
+        .hero-content { padding:20px; }
+        .hero-content h1 { font-size:3.5em; margin-bottom:15px; }
+        .hero-content h2 { font-size:2em; margin-bottom:40px; font-weight:400; }
+
+        .btn { display:inline-block; padding:12px 30px; text-decoration:none; border-radius:50px; font-weight:bold; text-transform:uppercase; letter-spacing:1px; transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s; }
+        .btn.primary { background-color: var(--color-acento); color: var(--color-claro); border:2px solid var(--color-acento); box-shadow:0 4px 8px rgba(255,99,71,0.4); }
+        .btn.primary:hover { background-color:#e55337; transform:translateY(-3px); box-shadow:0 6px 12px rgba(255,99,71,0.6); }
+        .btn.secondary { background-color: var(--color-principal); color: var(--color-claro); border:2px solid var(--color-principal); }
+
+        .service-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:30px; text-align:center; }
+        .service-item { padding:30px; background: var(--color-claro); border-radius:10px; box-shadow:0 6px 15px rgba(0,0,0,0.1); transition: transform 0.3s, box-shadow 0.3s; }
+        .service-item:hover { transform:translateY(-5px); box-shadow:0 10px 20px rgba(0,0,0,0.15); }
+        .service-item i { font-size:3.5em; color: var(--color-principal); margin-bottom:20px; }
+        .service-item h3 { margin-bottom:10px; color: var(--color-acento); font-size:1.4em; }
+
+        .price-grid { display:flex; justify-content:center; gap:40px; flex-wrap: wrap; }
+        .price-card { background: var(--color-fondo); padding:40px; border-radius:10px; box-shadow:0 4px 15px rgba(0,0,0,0.15); text-align:center; width:320px; transition: background 0.3s; }
+        .price-card.featured { background: var(--color-claro); border:4px solid var(--color-acento); transform: scale(1.05); box-shadow:0 10px 25px rgba(255,99,71,0.3); }
+        .price-card h3 { font-size:2em; color: var(--color-principal); margin-bottom:10px; }
+        .price-card .duration { font-size:1.3em; color:#666; margin-bottom:10px; }
+        .price-card .price { font-size:2.5em; color: var(--color-acento); font-weight:800; margin:5px 0 5px; } 
+        .price-card .price::after { content:'€'; font-size:0.5em; position:relative; top:-10px; left:5px; }
+        
+        .note { text-align:center; margin-top:30px; font-style: italic; color:#666; }
+
+        .about-flex { display:flex; justify-content:center; padding:30px; background-color: var(--color-claro); border-radius:10px; box-shadow:0 4px 10px rgba(0,0,0,0.05); }
+        .about-text { flex:1; max-width:800px; text-align:center; }
+        .about-text h2 { text-align:center; }
+        .about-text p { margin-bottom:15px; text-align:left; }
+        .emphasis { font-style: normal; font-weight:600; color: var(--color-principal); margin:20px auto; padding:15px; background-color:#e6f0ff; border-left:5px solid var(--color-acento); text-align:left; max-width:90%; }
+
+        .faq-item { margin-bottom:25px; padding:20px; background: var(--color-fondo); border-radius:8px; border-left:4px solid var(--color-principal); }
+        .faq-item h4 { color: var(--color-acento); margin-bottom:8px; font-size:1.3em; }
+
+        .schedule-table { width:80%; margin:30px auto; border-collapse:collapse; background-color: var(--color-claro); box-shadow:0 4px 10px rgba(0,0,0,0.1); border-radius:8px; overflow:hidden; }
+        .schedule-table th, .schedule-table td { border:1px solid #ddd; padding:15px; text-align:center; }
+        .schedule-table th { background-color: var(--color-principal); color:white; font-weight:bold; }
+        .schedule-table tr:nth-child(even) { background-color:#f2f2f2; }
+        .schedule-table tr:hover { background-color:#e0e0e0; }
+
+        .contact-info { text-align:center; margin-top:40px; font-size:1.4em; padding:20px; background-color: var(--color-claro); border-radius:10px; box-shadow:0 2px 8px rgba(0,0,0,0.1); }
+        .contact-info p { margin:15px 0; }
+        .contact-info a { color: var(--color-acento); text-decoration:none; font-weight:700; transition: color 0.3s; }
+        .contact-info a:hover { color: var(--color-principal); text-decoration:underline; }
+        .contact-info i { color: var(--color-principal); margin-right:15px; font-size:1.2em; }
+
+        footer { background-color: var(--color-oscuro); color:white; text-align:center; padding:25px 0; margin-top:50px; font-size:0.9em; border-top:5px solid var(--color-acento); }
+
+        @media (max-width:850px) {
+            header nav { flex-direction:column; }
+            header ul { margin-top:15px; flex-wrap:wrap; justify-content:center; }
+            header ul li { margin:5px 10px; }
+            .hero-content h1 { font-size:3em; }
+            .hero-content h2 { font-size:1.5em; }
+            .price-grid, .about-flex { flex-direction:column; }
+            .price-card { width:100%; margin-bottom:20px; }
+            .price-card.featured { transform:scale(1.03); }
+            .schedule-table { width:100%; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="container">
+        <nav>
+            <h1>Correa y Camino</h1>
+            <ul>
+                <li><a href="#servicios">Servicios</a></li>
+                <li><a href="#precios">Tarifas</a></li>
+                <li><a href="#sobre-mi">Tomás</a></li>
+                <li><a href="#filosofia-nombre">Filosofía</a></li>
+                <li><a href="#horarios">Horarios</a></li>
+                <li><a href="#faq">FAQ</a></li>
+                <li><a href="#contacto" class="btn secondary" style="padding:5px 15px; border-radius:5px;">¡Reservar!</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<section id="hero" class="hero">
+    <div class="container">
+        <div class="hero-content">
+            <h1>Correa y Camino</h1>
+            <h2>Paseos de calidad · Reportes con fotos y vídeo · Máxima seguridad y cariño</h2>
+            <p style="margin-bottom:20px;">Tu compañero peludo merece la mejor atención. Confía en la responsabilidad de un joven emprendedor!</p>
+            <a href="#contacto" class="btn primary">¡Reserva y haz feliz a tu perro!</a>
+        </div>
+    </div>
+</section>
+
+<section id="servicios" class="section-padding bg-light">
+    <div class="container">
+        <h2 class="section-title">Nuestros Servicios Destacados</h2>
+        <div class="service-grid">
+            <div class="service-item">
+                <i class="fas fa-map-marker-alt"></i>
+                <h3>Rutas a Medida</h3>
+                <p>La comodidad de tu perro es lo primero. Seguiremos la ruta que mejor conozca y disfrute, adaptándonos al 100% a tus indicaciones y a su ritmo.</p>
+            </div>
+            <div class="service-item">
+                <i class="fas fa-heart"></i>
+                <h3>Atención Individual</h3>
+                <p>No paseamos grupos grandes. Esto garantiza una supervisión constante, mimos y que todas las necesidades de tu perro sean mi prioridad.</p>
+            </div>
+            <div class="service-item">
+                <i class="fas fa-mobile-alt"></i>
+                <h3>Reporte 5 Estrellas</h3>
+                <p>Al finalizar, te enviaré un completo reporte con la hora de inicio/fin, mapa del recorrido, fotos y vídeos de tu mascota divirtiéndose.</p>
+            </div>
+            <div class="service-item">
+                <i class="fas fa-paw"></i>
+                <h3>Cuidado Total</h3>
+                <p>Incluye revisión de agua, comida y limpieza rápida de patas si ha habido barro. La higiene y el bienestar son parte del servicio.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="sobre-mi" class="section-padding">
+    <div class="container about-flex">
+        <div class="about-text">
+            <h2 class="section-title">Conoce a Tomás, tu Paseador de Confianza</h2>
+            <p>Soy Tomás, un joven emprendedor. Empecé este proyecto con la ilusión de ganarme mi primer sueldo cuidando de animales y gestionando mis propios proyectos. Desde muy pequeño, mi amor y respeto por los perros me han impulsado a ofrecer un servicio que destaque por la responsabilidad y el afecto sincero.</p>
+            <p>Entiendo que dejar a tu mascota con alguien es un acto de gran confianza, por eso mi compromiso es total. Soy puntual, dedicado y sigo todas las instrucciones de cuidado al pie de la letra.</p>
+            <p class="emphasis">Tu perro no será uno más, será mi prioridad. Me enfoco en paseos tranquilos y seguros, asegurando que regresen a casa felices, relajados y con ganas de volver a verme.</p>
+            <p>¡Gracias por apoyar a un joven que aprende a emprender!</p>
+        </div>
+    </div>
+</section>
+
+<section id="filosofia-nombre" class="section-padding bg-light">
+    <div class="container" style="max-width: 800px; text-align: center;">
+        <h2 class="section-title">Significado de nuestro Nombre</h2>
+        <div style="background-color: var(--color-claro); padding: 30px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); text-align: left; border: 1px solid #ddd;">
+            <h3 style="color: var(--color-acento); font-size: 1.6em; margin-bottom: 20px;">¿Por qué Correa y Camino?</h3>
+            <p style="font-size: 1.1em; line-height: 1.7;">
+                La Correa simboliza nuestro compromiso inquebrantable con la seguridad. Es el elemento que garantiza el control y el cuidado constante de tu mascota. El Camino es nuestra promesa de bienestar y propósito. Cada ruta es una oportunidad para el ejercicio, la exploración y la felicidad mental.
+            </p>
+        </div>
+    </div>
+</section>
+<section id="precios" class="section-padding">
+    <div class="container">
+        <h2 class="section-title">Tarifas Claras y Sencillas</h2>
+        <div class="price-grid">
+            
+            <div class="price-card" style="width: 320px;">
+                <h3>Paseo Express (30 Min)</h3>
+                
+                <p class="duration" style="font-weight: bold; color: var(--color-oscuro);">Paseo Ocasional:</p>
+                <p class="price" style="font-size: 2.5em; margin-bottom: 5px;">5 - 10</p>
+                <p style="font-size: 0.9em; margin-bottom: 15px;">Para ese momento <strong>sin planificar</strong>, o solo alivio rápido.</p>
+
+                <p class="duration" style="font-weight: bold; color: var(--color-oscuro);">Abono Semanal (Máx. 3 días):</p>
+                <p class="price" style="font-size: 2.5em; margin-bottom: 25px;">10 - 15</p>
+                <p style="font-size: 0.9em; color: var(--color-principal);">Máximo de 3 paseos a la semana. Precio fijo y preferencial.</p>
+                
+                <a href="#contacto" class="btn primary" style="background-color: var(--color-principal); margin-top: 15px;">Reservar 30 min</a>
+            </div>
+            
+            <div class="price-card featured" style="width: 320px;">
+                <h3>Paseo Estándar (60 Min)</h3>
+                
+                <p class="duration" style="font-weight: bold; color: var(--color-oscuro);">Paseo Ocasional (Normal):</p>
+                <p class="price" style="font-size: 2.5em; margin-bottom: 5px;">15 - 20</p>
+                <p style="font-size: 0.9em; margin-bottom: 15px;">Ejercicio completo y exploración segura.</p>
+
+                <p class="duration" style="font-weight: bold; color: var(--color-oscuro);">Abono Semanal:</p>
+                <p class="price" style="font-size: 2.5em; margin-bottom: 25px;">20 - 25</p>
+                <p style="font-size: 0.9em; color: var(--color-principal);">Precio fijo para servicios recurrentes de calidad.</p>
+                
+                <a href="#contacto" class="btn primary" style="margin-top: 15px;">Reservar 60 min</a>
+            </div>
+            
+            <div class="price-card" style="width: 320px;">
+                <h3>Servicio PREMIUM (60 Min)</h3>
+                
+                <p class="duration" style="font-weight: bold; color: var(--color-oscuro);">Premium Ocasional (Sin planificar):</p>
+                <p class="price" style="font-size: 2.5em; margin-bottom: 5px;">25 - 30</p>
+                <p style="font-size: 0.9em; margin-bottom: 15px;">Todos los extras, sujeto a disponibilidad.</p>
+
+                <p class="duration" style="font-weight: bold; color: var(--color-oscuro);">Abono PREMIUM Semanal:</p>
+                <p class="price" style="font-size: 2.5em; margin-bottom: 25px;">30 - 35</p>
+                <p style="font-weight: bold; color: var(--color-acento);">Máxima comodidad y atención personalizada a precio fijo.</p>
+                
+                <a href="#contacto" class="btn primary" style="background-color: var(--color-principal); margin-top: 15px;">Reservar PREMIUM</a>
+            </div>
+        </div>
+        
+        <p class="note" style="margin-top: 40px; font-weight: bold; color: var(--color-oscuro); font-style: normal;">
+            <span style="font-size:1.5em; margin-right: 5px;">🐶</span> El Servicio PREMIUM incluye: Recogida y entrega a domicilio, <strong>fotos y vídeos</strong> del paseo, <strong>tiempo de juego extra</strong>, y la <strong>ruta la elige el dueño</strong> al 100%.
+        </p>
+        <p class="note"><span style="font-size:1.5em; margin-right: 5px;">✅</span> Precios por perro. Pregunta por nuestros descuentos especiales para paquetes de varios perros.</p>
+    </div>
+</section>
+
+<section id="horarios" class="section-padding bg-light">
+    <div class="container">
+        <h2 class="section-title">⏰ Disponibilidad Semanal (No siempre disponible)</h2>
+        <table class="schedule-table">
+            <thead>
+                <tr>
+                    <th>Día</th>
+                    <th>Horario Mañana/Tarde</th>
+                    <th>Nota</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Lunes a viernes</td>
+                    <td>08:00 – 20:00</td>
+                    <td>Amplia disponibilidad para adaptarse a tu jornada.</td>
+                </tr>
+                <tr>
+                    <td>Sábados y domingos</td>
+                    <td>09:00 – 14:00 y 17:00 – 19:00</td>
+                    <td>Fines de semana con descanso al mediodía.</td>
+                </tr>
+            </tbody>
+        </table>
+        <p class="note" style="color: var(--color-acento); font-size:1.1em; font-weight:bold; font-style: normal;">
+            <span style="font-size:1.5em; margin-right: 5px;">🚨</span> Planificación: Por favor, realiza tu reserva con 24 horas de antelación para garantizar tu franja horaria preferida.
+        </p>
+    </div>
+</section>
+
+<section id="faq" class="section-padding">
+    <div class="container">
+        <h2 class="section-title">Preguntas Frecuentes (FAQ)</h2>
+        <div class="faq-container">
+            <div class="faq-item">
+                <h4>¿Siguen la ruta que yo indico?</h4>
+                <p>Sí, absolutamente. La ruta que tú nos indiques la seguiremos. Queremos que tu perro se sienta seguro y familiarizado, por lo que nos adaptamos al 100% a tu zona y preferencias.</p>
+            </div>
+            <div class="faq-item">
+                <h4>¿Qué incluye el reporte con fotos y vídeos?</h4>
+                <p>El reporte es detallado: recibirás la hora exacta de inicio y fin del paseo, un resumen del comportamiento de tu perro, y material audiovisual (fotos y vídeos cortos) que demuestran la diversión y el bienestar de tu mascota.</p>
+            </div>
+            <div class="faq-item">
+                <h4>¿Puedo reservar para el mismo día?</h4>
+                <p>Aunque preferimos reservas con 24 horas de antelación para organizar la ruta y garantizar la calidad, puedes contactarme por teléfono (WhatsApp) para consultar si hay un hueco de última hora.</p>
+            </div>
+            <div class="faq-item">
+                <h4>¿Qué pasa si llueve?</h4>
+                <p>Si el clima es adverso, el paseo se acorta para un alivio rápido y el tiempo restante se utiliza para juegos interactivos, mimos y cepillado dentro de casa (si nos lo permiten), asegurando que tu perro gaste energía y esté feliz.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="contacto" class="section-padding">
+    <div class="container">
+        <h2 class="section-title">Hablemos! Reserva y Preguntas</h2>
+        <p style="text-align: center; font-size: 1.2em; margin-bottom: 20px;">
+            Contacta para consultar disponibilidad o resolver cualquier duda sobre tu mascota. Respuesta rápida garantizada.
+        </p>
+        <div class="contact-info">
+            <p><i class="fas fa-envelope"></i> Correo Electrónico: <a href="mailto:emprendedoresperrunos@gmail.com">emprendedoresperrunos@gmail.com</a></p>
+        </div>
+        
+        <div style="margin-top:30px; text-align:center;">
+            <form action="mailto:emprendedoresperrunos@gmail.com" method="post" enctype="text/plain" style="max-width:600px; margin:auto; display:flex; flex-direction:column; gap:15px;">
+                <input type="text" name="nombre" placeholder="Tu nombre" required style="padding:12px; border-radius:5px; border:1px solid #ccc;">
+                <input type="email" name="correo" placeholder="Tu correo electrónico" required style="padding:12px; border-radius:5px; border:1px solid #ccc;">
+                <textarea name="mensaje" rows="5" placeholder="Escribe aquí las necesidades de tu perro (raza, edad, días deseados, etc.)" required style="padding:12px; border-radius:5px; border:1px solid #ccc;"></textarea>
+                <button type="submit" class="btn primary" style="width:200px; margin:auto;">Enviar Solicitud</button>
+            </form>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <div class="container">
+        <p>&copy; 2025 Correa y Camino - Todos los derechos reservados</p>
+        <p>Servicio de paseos de perros por Tomás, tu paseador de confianza.</p>
+    </div>
+</footer>
+
+</body>
+</html>
